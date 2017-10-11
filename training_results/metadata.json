@@ -1,0 +1,37 @@
+{
+  "cmd_line_args": [
+    {
+      "game_batch": 2,
+      "initial_weights": "training_results/policy_supervised_weights/weights.00004.hdf5",
+      "iterations": 2,
+      "learning_rate": 0.001,
+      "loss": "ll",
+      "model_json": "my_model.json",
+      "move_limit": 500,
+      "out_directory": "training_results/",
+      "policy_temp": 0.67,
+      "record_every": 1,
+      "resume": false,
+      "save_every": 500,
+      "verbose": false
+    }
+  ],
+  "game_batch": 2,
+  "init_weights": "training_results/policy_supervised_weights/weights.00004.hdf5",
+  "learning_rate": 0.001,
+  "model_file": "my_model.json",
+  "opponents": [
+    "weights.00000.hdf5"
+  ],
+  "temperature": 0.67,
+  "win_ratio": {
+    "weights.00001.hdf5": [
+      "weights.00000.hdf5",
+      0.5
+    ],
+    "weights.00002.hdf5": [
+      "weights.00000.hdf5",
+      0.5
+    ]
+  }
+}

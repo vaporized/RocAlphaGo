@@ -23,7 +23,7 @@ class CNNPolicy(NeuralNetBase):
         # get network activations at legal move locations
         distribution = nn_output[move_indices]
         distribution = distribution / distribution.sum()
-        return zip(moves, distribution)
+        return list(zip(moves, distribution))
 
     def batch_eval_state(self, states, moves_lists=None):
         """Given a list of states, evaluates them all at once to make best use of GPU

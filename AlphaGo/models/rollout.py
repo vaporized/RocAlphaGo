@@ -21,7 +21,7 @@ class CNNRollout(NeuralNetBase):
         # get network activations at legal move locations
         distribution = nn_output[move_indices]
         distribution = distribution / distribution.sum()
-        return zip(moves, distribution)
+        return list(zip(moves, distribution))
 
     def eval_state(self, state, moves=None):
         """Given a GameState object, returns a list of (action, probability) pairs

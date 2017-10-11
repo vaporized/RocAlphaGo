@@ -93,7 +93,7 @@ class ProbabilisticPolicyPlayer(object):
 
                 # zip(*list) is like the 'transpose' of zip;
                 # zip(*zip([1,2,3], [4,5,6])) is [(1,2,3), (4,5,6)]
-                moves, probabilities = zip(*move_probs)
+                moves, probabilities = list(zip(*move_probs))
                 # apply 'temperature' to the distribution
                 probabilities = self.apply_temperature(probabilities)
                 # numpy interprets a list of tuples as 2D, so we must choose an
@@ -123,8 +123,7 @@ class ProbabilisticPolicyPlayer(object):
                     move_list[i] = max_prob[0]
                 else:
                     # probabilistic
-
-                    moves, probabilities = zip(*move_probs)
+                    moves, probabilities = list(zip(*move_probs))
                     # apply 'temperature' to the distribution
                     probabilities = self.apply_temperature(probabilities)
                     # numpy interprets a list of tuples as 2D, so we must choose an
@@ -190,7 +189,7 @@ class RolloutPlayer(object):
 
                 # zip(*list) is like the 'transpose' of zip;
                 # zip(*zip([1,2,3], [4,5,6])) is [(1,2,3), (4,5,6)]
-                moves, probabilities = zip(*move_probs)
+                moves, probabilities = list(zip(*move_probs))
                 # apply 'temperature' to the distribution
                 probabilities = self.apply_temperature(probabilities)
                 # numpy interprets a list of tuples as 2D, so we must choose an
@@ -221,7 +220,7 @@ class RolloutPlayer(object):
                 else:
                     # probabilistic
 
-                    moves, probabilities = zip(*move_probs)
+                    moves, probabilities = list(zip(*move_probs))
                     # apply 'temperature' to the distribution
                     probabilities = self.apply_temperature(probabilities)
                     # numpy interprets a list of tuples as 2D, so we must choose an
@@ -281,7 +280,7 @@ class ValuePlayer(object):
 
             # generate all possible next states
             state_list = [state.copy() for _ in legal_moves]
-            for st, mv in zip(state_list, legal_moves):
+            for st, mv in list(zip(state_list, legal_moves)):
                 st.do_move(mv)
 
             # evaluate all possble states
@@ -290,7 +289,7 @@ class ValuePlayer(object):
             if self.greedy_start is not None and state.get_history_size() >= self.greedy_start:
                 # greedy play
 
-                move_probs = zip(legal_moves, probabilities)
+                move_probs = list(zip(legal_moves, probabilities))
                 max_prob = max(move_probs, key=itemgetter(1))
                 return max_prob[0]
             else:
