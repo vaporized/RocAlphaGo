@@ -99,10 +99,10 @@ def play_batch(player_RL, player_SL, batch_size, features, i_rand_move, next_idx
 
     # Lists of game training pairs (1-hot)
     preprocessor = Preprocess(features)
-    states = [GameState() for _ in xrange(batch_size)]
+    states = [GameState() for _ in range(batch_size)]
 
     # play player_SL moves
-    for _ in xrange(i_rand_move - 1):
+    for _ in range(i_rand_move - 1):
         # Get moves (batch)
         batch_moves = player_SL.get_moves(states)
         # Do moves (black)

@@ -618,7 +618,7 @@ def train(metadata, out_directory, verbose, weight_file, meta_file):
     train_indices, val_indices, test_indices \
         = load_train_val_test_indices(verbose, metadata['symmetries'], len(dataset["states"]),
                                       metadata["batch_size"], out_directory)
-
+    print(train_indices, val_indices, test_indices)
     # create dataset generators
     train_data_generator = threading_shuffled_hdf5_batch_generator(
         dataset["states"],

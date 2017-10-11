@@ -1,7 +1,7 @@
 import numpy as np
 from keras.models import Sequential
 from keras.layers.core import Flatten
-from nn_util import NeuralNetBase, neuralnet
+from AlphaGo.models.nn_util import NeuralNetBase, neuralnet
 from keras.layers import Dense, convolutional
 
 
