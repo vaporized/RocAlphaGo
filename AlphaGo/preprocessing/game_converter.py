@@ -160,8 +160,7 @@ def run_game_converter(cmd_line_args=None):
     parser = argparse.ArgumentParser(
         description='Prepare SGF Go game files for training the neural network model.',
         epilog="Available features are: board, ones, turns_since, liberties,\
-        capture_size, self_atari_size, liberties_after, sensibleness, and zeros.\
-        Ladder features are not currently implemented")
+        capture_size, self_atari_size, liberties_after, sensibleness, and zeros.")
     parser.add_argument("--features", "-f", help="Comma-separated list of features to compute and store or 'all'", default='all')  # noqa: E501
     parser.add_argument("--outfile", "-o", help="Destination to write data (hdf5 file)", required=True)  # noqa: E501
     parser.add_argument("--recurse", "-R", help="Set to recurse through directories searching for SGF files", default=False, action="store_true")  # noqa: E501

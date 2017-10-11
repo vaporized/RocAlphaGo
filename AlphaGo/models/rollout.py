@@ -2,7 +2,7 @@ from keras.models import Sequential
 from AlphaGo.util import flatten_idx
 from keras.layers import convolutional
 from keras.layers.core import Activation, Flatten
-from nn_util import Bias, NeuralNetBase, neuralnet
+from AlphaGo.models.nn_util import Bias, NeuralNetBase, neuralnet
 
 
 @neuralnet

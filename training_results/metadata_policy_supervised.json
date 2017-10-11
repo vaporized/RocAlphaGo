@@ -1,0 +1,54 @@
+{
+  "epoch_logs": [
+    {
+      "val_loss": 5.8887086444430885,
+      "val_acc": 0.006944444444444444,
+      "loss": 5.8887209116026416,
+      "acc": 0.0029069767441860465
+    },
+    {
+      "val_loss": 5.888535393608941,
+      "val_acc": 0.008680555555555556,
+      "loss": 5.888549228047216,
+      "acc": 0.00436046511627907
+    },
+    {
+      "val_loss": 5.8883993360731335,
+      "val_acc": 0.0,
+      "loss": 5.888426503469778,
+      "acc": 0.003633720930232558
+    },
+    {
+      "val_loss": 5.888294696807861,
+      "val_acc": 0.003472222222222222,
+      "loss": 5.888270500094392,
+      "acc": 0.002180232558139535
+    },
+    {
+      "val_loss": 5.888043615553114,
+      "val_acc": 0.001736111111111111,
+      "loss": 5.888177882793338,
+      "acc": 0.003633720930232558
+    }
+  ],
+  "current_batch": 215,
+  "current_epoch": 4,
+  "best_epoch": 4,
+  "generator_seed": 743210162,
+  "symmetries": "all",
+  "model_file": "my_model.json",
+  "decay_every": null,
+  "learning_rate": 0.01,
+  "decay": 1.25e-08,
+  "batch_size": 32,
+  "max_validation": 1000000000,
+  "train_val_test": [
+    0.95,
+    0.05,
+    0.0
+  ],
+  "epochs": 5,
+  "epoch_length": 1366,
+  "available_states": 1366,
+  "training_data": "debug_feature_planes.hdf5"
+}

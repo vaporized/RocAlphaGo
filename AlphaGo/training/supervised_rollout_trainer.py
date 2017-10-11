@@ -133,13 +133,13 @@ class threading_shuffled_hdf5_batch_generator:
             # return state, action and transformation
             return state, action, training_sample[1]
 
-    def next(self):
+    def __next__(self):
         state_batch_shape = (self.batch_size,) + self.state_dataset.shape[1:]
         game_size = state_batch_shape[-1]
         Xbatch = np.zeros(state_batch_shape)
         Ybatch = np.zeros((self.batch_size, game_size * game_size))
 
-        for batch_idx in xrange(self.batch_size):
+        for batch_idx in range(self.batch_size):
             state, action, transformation = self.next_indice()
 
             # get rotation symmetry belonging to state
@@ -270,7 +270,7 @@ class EpochDataSaverCallback(Callback):
             self.metadata["best_epoch"] = epoch
 
         # save meta to file
-        with open(self.file, "w") as f:
+        with open(self.file, "wb") as f:
             json.dump(self.metadata, f, indent=2)
 
         # save model to file with correct epoch
@@ -285,7 +285,7 @@ def validate_feature_planes(verbose, dataset, model_features):
 
     if 'features' in dataset:
         dataset_features = dataset['features'][()]
-        dataset_features = dataset_features.split(",")
+        dataset_features = [s.decode() for s in dataset_features.split(b",")]
         if len(dataset_features) != len(model_features) or \
            any(df != mf for (df, mf) in zip(dataset_features, model_features)):
             raise ValueError("Model JSON file expects features \n\t%s\n"
@@ -310,7 +310,7 @@ def validate_feature_planes(verbose, dataset, model_features):
 
 def load_indices_from_file(shuffle_file):
     # load indices from shuffle_file
-    with open(shuffle_file, "r") as f:
+    with open(shuffle_file, "rb") as f:
         indices = np.load(f)
 
     return indices
@@ -318,7 +318,7 @@ def load_indices_from_file(shuffle_file):
 
 def save_indices_to_file(shuffle_file, indices):
     # save indices to shuffle_file
-    with open(shuffle_file, "w") as f:
+    with open(shuffle_file, "wb") as f:
         np.save(f, indices)
 
 
@@ -343,7 +343,7 @@ def create_and_save_shuffle_indices(train_val_test, max_validation,
         seperate those sets and save them to seperate files.
     """
 
-    symmetries = TRANSFORMATION_INDICES.values()
+    symmetries = list(TRANSFORMATION_INDICES.values())
 
     # Create an array with a unique row for each combination of a training example
     # and a symmetry.
@@ -404,13 +404,13 @@ def load_train_val_test_indices(verbose, arg_symmetries, dataset_length, batch_s
     # used symmetries
     if arg_symmetries == "all":
         # add all symmetries
-        symmetries = TRANSFORMATION_INDICES.values()
+        symmetries = list(TRANSFORMATION_INDICES.values())
     elif arg_symmetries == "none":
         # only add standart orientation
         symmetries = [TRANSFORMATION_INDICES["noop"]]
     else:
         # add specified symmetries
-        symmetries = [TRANSFORMATION_INDICES[name] for name in arg_symmetries.strip().split(",")]
+        symmetries = [TRANSFORMATION_INDICES[name] for name in arg_symmetries.strip().split(b",")]
 
     if verbose:
         print("Used symmetries: " + arg_symmetries)
@@ -706,7 +706,7 @@ def start_training(args):
     # create or load metadata from json file
     if resume and os.path.exists(meta_file):
         # load metadata
-        with open(meta_file, "r") as f:
+        with open(meta_file, "rb") as f:
             metadata = json.load(f)
 
         if args.verbose:
@@ -746,7 +746,7 @@ def resume_training(args):
 
     # load data from json file
     if os.path.exists(meta_file):
-        with open(meta_file, "r") as f:
+        with open(meta_file, "rb") as f:
             metadata = json.load(f)
     else:
         raise ValueError("Metadata file not found!")
