@@ -1,4 +1,4 @@
-#Notes by [vapor](https://github.com/vaporized)
+# Notes by [vapor](https://github.com/vaporized)
 
  - Cython files must be compiled before running the project. Command: `python setup.py build_ext --inplace`
 
