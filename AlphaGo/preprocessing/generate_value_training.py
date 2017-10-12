@@ -190,7 +190,7 @@ def generate_data(player_RL, player_SL, hdf5_file, n_training_pairs,
         # Randomly choose turn to play uniform random. Move prior will be from SL
         # policy. Moves after will be from RL policy.
         i_rand_move = np.random.choice(range(DEAULT_RANDOM_MOVE))
-
+        print('num of pairs:', next_idx, " of ", n_training_pairs)
         # play games
         states, winners = play_batch(player_RL, player_SL, batch_size, features,
                                      i_rand_move, next_idx, sgf_path)

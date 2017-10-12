@@ -1,0 +1,85 @@
+{
+  "epoch_logs": [
+    {
+      "val_loss": 0.9976753507341657,
+      "val_acc": 0.0,
+      "loss": 0.9998410157859325,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9958451560565403,
+      "val_acc": 0.0,
+      "loss": 0.9991003908216953,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9909693343298775,
+      "val_acc": 0.0,
+      "loss": 0.9957384318113327,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9893536567687988,
+      "val_acc": 0.0,
+      "loss": 0.995929729193449,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9875778215272086,
+      "val_acc": 0.0,
+      "loss": 0.995202261954546,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9897519520350865,
+      "val_acc": 0.0,
+      "loss": 0.9994536340236664,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9874933106558663,
+      "val_acc": 0.0,
+      "loss": 0.9941244423389435,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9873941796166557,
+      "val_acc": 0.0,
+      "loss": 0.9980634078383446,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9838427986417498,
+      "val_acc": 0.0,
+      "loss": 0.9914986416697502,
+      "acc": 0.0
+    },
+    {
+      "val_loss": 0.9832874195916312,
+      "val_acc": 0.0,
+      "loss": 0.9955929443240166,
+      "acc": 0.0
+    }
+  ],
+  "current_batch": 160,
+  "current_epoch": 9,
+  "best_epoch": 9,
+  "generator_seed": 507506213,
+  "generator_sample": 1632,
+  "symmetries": "all",
+  "model_file": "my_model_value.json",
+  "decay_every": null,
+  "learning_rate": 0.003,
+  "decay": 1.25e-08,
+  "batch_size": 32,
+  "max_validation": 1000000000,
+  "train_val_test": [
+    0.95,
+    0.05,
+    0.0
+  ],
+  "epochs": 10,
+  "epoch_length": 501,
+  "available_states": 501,
+  "training_data": "value_planes.hdf5"
+}

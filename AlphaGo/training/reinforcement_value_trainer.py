@@ -50,6 +50,12 @@ BOARD_TRANSFORMATIONS = {
     7: lambda feature: np.fliplr(np.rot90(feature, 1))
 }
 
+#numpy integer serializer for python 3
+def npint_serializer(obj):
+    if isinstance(obj, np.integer):
+        return int(obj)
+    raise TypeError
+
 
 class threading_shuffled_hdf5_batch_generator:
     """A generator of batches of training data for use with the fit_generator function
@@ -258,8 +264,8 @@ class EpochDataSaverCallback(Callback):
             self.metadata["best_epoch"] = epoch
 
         # save meta to file
-        with open(self.file, "wb") as f:
-            json.dump(self.metadata, f, indent=2)
+        with open(self.file, "w") as f:
+            json.dump(self.metadata, f, indent=2, default=npint_serializer)
 
         # save model to file with correct epoch
         save_file = os.path.join(self.root, FOLDER_WEIGHT,
@@ -361,6 +367,7 @@ def create_and_save_shuffle_indices(train_val_test, max_validation,
 
     # create training set and save to file shuffle_file_train
     train_indices = shuffle_indices[0:n_train_data]
+
     save_indices_to_file(shuffle_file_train, train_indices)
 
     # create validation set and save to file shuffle_file_val
@@ -591,6 +598,7 @@ def set_training_settings(resume, args, metadata, dataset_length):
 
 
 def train(metadata, out_directory, verbose, weight_file, meta_file):
+    print('reached training function')
     # set resume
     resume = weight_file is not None
 
@@ -605,6 +613,7 @@ def train(metadata, out_directory, verbose, weight_file, meta_file):
     # features of training data
     dataset = h5.File(metadata["training_data"])
 
+
     # Verify that dataset's features match the model's expected features.
     validate_feature_planes(verbose, dataset, model_features)
 
@@ -618,7 +627,7 @@ def train(metadata, out_directory, verbose, weight_file, meta_file):
     train_indices, val_indices, test_indices \
         = load_train_val_test_indices(verbose, metadata['symmetries'], len(dataset["states"]),
                                       metadata["batch_size"], out_directory)
-    print(train_indices, val_indices, test_indices)
+
     # create dataset generators
     train_data_generator = threading_shuffled_hdf5_batch_generator(
         dataset["states"],
@@ -721,7 +730,7 @@ def start_training(args):
     # set all settings: default, from args or from metadata
     # generate new shuffle files if needed
     set_training_settings(resume, args, metadata, len(dataset["states"]))
-
+    
     # start training
     train(metadata, args.out_directory, args.verbose, None, meta_file)
 
@@ -808,7 +817,7 @@ def handle_arguments(cmd_line_args=None):
 
     # execute function (train or resume)
     args.func(args)
-
+    exit()
 
 if __name__ == '__main__':
     handle_arguments()

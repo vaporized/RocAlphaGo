@@ -53,6 +53,7 @@ def run_n_games(optimizer, lr, learner, opponent, num_games, mock_states=[]):
     while len(idxs_to_unfinished_states) > 0:
         #print(idxs_to_unfinished_states)
         # Get next moves by current player for all unfinished states.
+        print(idxs_to_unfinished_states)
         moves = current.get_moves(list(idxs_to_unfinished_states.values()))
         just_finished = []
         # Do each move to each state in order.
