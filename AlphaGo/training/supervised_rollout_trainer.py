@@ -50,6 +50,12 @@ BOARD_TRANSFORMATIONS = {
     7: lambda feature: np.fliplr(np.rot90(feature, 1))
 }
 
+#numpy integer serializer for python 3
+def npint_serializer(obj):
+    if isinstance(obj, np.integer):
+        return int(obj)
+    raise TypeError
+
 
 def one_hot_action(action, size=19):
     """Convert an (x,y) action into a size x size array of zeros with a 1 at x,y
@@ -270,8 +276,8 @@ class EpochDataSaverCallback(Callback):
             self.metadata["best_epoch"] = epoch
 
         # save meta to file
-        with open(self.file, "wb") as f:
-            json.dump(self.metadata, f, indent=2)
+        with open(self.file, "w") as f:
+            json.dump(self.metadata, f, indent=2, default=npint_serializer)
 
         # save model to file with correct epoch
         save_file = os.path.join(self.root, FOLDER_WEIGHT,
@@ -608,7 +614,7 @@ def train(metadata, out_directory, verbose, weight_file, meta_file):
 
     # load model from json spec
     policy = CNNRollout.load_model(metadata["model_file"])
-    model_features = policy.preprocessor.feature_list
+    model_features = policy.preprocessor.get_feature_list()
     model = policy.model
     # load weights
     if resume:
@@ -706,7 +712,7 @@ def start_training(args):
     # create or load metadata from json file
     if resume and os.path.exists(meta_file):
         # load metadata
-        with open(meta_file, "rb") as f:
+        with open(meta_file, "r") as f:
             metadata = json.load(f)
 
         if args.verbose:
@@ -746,7 +752,7 @@ def resume_training(args):
 
     # load data from json file
     if os.path.exists(meta_file):
-        with open(meta_file, "rb") as f:
+        with open(meta_file, "r") as f:
             metadata = json.load(f)
     else:
         raise ValueError("Metadata file not found!")

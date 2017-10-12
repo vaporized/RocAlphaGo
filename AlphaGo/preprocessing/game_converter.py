@@ -161,7 +161,7 @@ def run_game_converter(cmd_line_args=None):
         description='Prepare SGF Go game files for training the neural network model.',
         epilog="Available features are: board, ones, turns_since, liberties,\
         capture_size, self_atari_size, liberties_after, sensibleness, and zeros.")
-    parser.add_argument("--features", "-f", help="Comma-separated list of features to compute and store or 'all'", default='all')  # noqa: E501
+    parser.add_argument("--features", "-f", help="Comma-separated list of features to compute and store or 'all' or 'rollout' ", default='all')  # noqa: E501
     parser.add_argument("--outfile", "-o", help="Destination to write data (hdf5 file)", required=True)  # noqa: E501
     parser.add_argument("--recurse", "-R", help="Set to recurse through directories searching for SGF files", default=False, action="store_true")  # noqa: E501
     parser.add_argument("--directory", "-d", help="Directory containing SGF files to process. if not present, expects files from stdin", default=None)  # noqa: E501
@@ -186,6 +186,15 @@ def run_game_converter(cmd_line_args=None):
             "ladder_escape",
             "sensibleness",
             "zeros"]
+    elif args.features.lower() == 'rollout':
+        feature_list = [
+            "response",
+            "save_atari",
+            "neighbor",
+            "nakade",
+            "response_12d",
+            "non_response_3x3"
+        ]
     else:
         feature_list = args.features.split(",")
 
